@@ -6,16 +6,11 @@ module dff(
 );
 
 initial begin
-    Q <= 1'b0;
+    Q <= 0;
 end
 
-always @(posedge clk or posedge rst) begin
-    if (rst) 
-		Q <= 1'b0;
-    else
-		Q <= D;
-end
+always @(posedge clk)
+    Q <= rst ? 1'b0 : D;
 
 assign NotQ = ~Q;
-
 endmodule

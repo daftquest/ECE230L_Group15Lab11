@@ -6,10 +6,10 @@ module ModCounter(
 
 wire OutQ0, OutQ1, OutQ2;
 wire atV = OutQ0 & ~OutQ1 & OutQ2;
-wire wrap = atV & enable;
+wire reset = atV & enable;
 
 dff D0(
-	.D(~wrap & (enable ^ OutQ0)),
+	.D(~reset & (enable ^ OutQ0)),
 	.clk(clock),
 	.rst((OutQ0 & ~OutQ1 & OutQ2) | rst),
 	.Q(OutQ0),
@@ -17,7 +17,7 @@ dff D0(
 );
 
 dff D1(
-	.D(~wrap & (OutQ1 ^ (enable & OutQ0))),
+	.D(~reset & (OutQ1 ^ (enable & OutQ0))),
 	.clk(clock),
 	.rst((OutQ0 & ~OutQ1 & OutQ2) | rst),
 	.Q(OutQ1),
@@ -25,7 +25,7 @@ dff D1(
 );
 
 dff D2(
-	.D(~wrap & (OutQ2 ^ (enable & OutQ0 & OutQ1))),
+	.D(~reset & (OutQ2 ^ (enable & OutQ0 & OutQ1))),
 	.clk(clock),
 	.rst((OutQ0 & ~OutQ1 & OutQ2) | rst),
 	.Q(OutQ2),
@@ -33,7 +33,7 @@ dff D2(
 );
 
 dff DN(
-	.D( N ^ wrap), 
+	.D( N ^ reset), 
 	.clk(clock),
 	.rst(rst),
 	.Q(N),

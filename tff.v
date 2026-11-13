@@ -10,13 +10,14 @@ initial Q = 1'b0;
 
 assign NotQ = ~Q;
 
-
-
-always @(posedge clk or posedge rst) begin
-    if (rst)
+always @(posedge clk) begin
+	if (rst) begin
 		Q <= 1'b0;
-    else if 
-		(T) Q <= ~Q;
+	end
+	else if (T) begin
+		Q <= ~Q;
+	end
 end
+
 
 endmodule
