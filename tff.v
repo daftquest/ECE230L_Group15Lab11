@@ -6,11 +6,17 @@ module tff(
     output NotQ
 );
 
+initial Q = 1'b0;
+
 assign NotQ = ~Q;
 
-always @(posedge clk) begin
-    Q <= rst ? 1'b0 : 1'b1;
-    Q <= T ? ~Q : Q;
+
+
+always @(posedge clk or posedge rst) begin
+    if (rst)
+		Q <= 1'b0;
+    else if 
+		(T) Q <= ~Q;
 end
 
 endmodule

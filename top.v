@@ -11,24 +11,24 @@ tff rippleOne(
     .T(1),
     .rst(btnU),
     .clk(btnC),
-    .Q(rippleConnector[0]),
-    .NotQ()
+    .Q(t0),
+    .NotQ(rippleConnector[0])
 );
 
 tff rippleTwo(
     .T(1),
     .rst(btnU),
     .clk(~rippleConnector[0]),
-    .Q(rippleConnector[1]),
-    .NotQ()
+    .Q(t1),
+    .NotQ(rippleConnector[1])
 );
 
 tff rippleThree(
     .T(1),
-    .rst(btn),
+    .rst(btnU),
     .clk(~rippleConnector[1]),
-    .Q(rippleConnector[2]),
-    .NotQ()
+    .Q(t2),
+    .NotQ(rippleConnector[2])
 );
 
 ModCounter modInst(
@@ -42,8 +42,8 @@ ModCounter modInst(
     .Q2(led[5])
 );
 
-assign led[0] = rippleConnector[0];
-assign led[1] = rippleConnector[1];
-assign led[2] = rippleConnector[2];
+assign led[0] = t0;
+assign led[1] = t1;
+assign led[2] = t2;
 
 endmodule
